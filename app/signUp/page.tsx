@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
@@ -8,24 +9,42 @@ export default function Login({
 }: {
   searchParams: { message: string };
 }) {
-  const signIn = async (formData: FormData) => {
+
+  const signUp = async (formData: FormData) => {
     "use server";
 
+    const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const emailPrefix = email?.split('@')[0] || '';
     const password = formData.get("password") as string;
+    const name = formData.get("name") as string;
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
     });
 
     if (error) {
       return redirect("/login?message=" + encodeURIComponent("아이디 또는 비밀번호가 일치하지 않습니다."));
     }
 
-    return redirect(`/${emailPrefix}`);
+    const user = data.user;
+
+    if (user) {
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert([{ id: emailPrefix, name }]);
+
+      if (profileError) {
+        return redirect("/login?message=" + encodeURIComponent("프로필 저장에 실패했습니다."));
+      }
+    }
+
+    return redirect("/login?message=" + encodeURIComponent("입력하신 주소로 인증 메일을 발송하였습니다."));
   };
 
   return (
@@ -52,6 +71,15 @@ export default function Login({
       </Link>
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+        <label className="text-md" htmlFor="name">
+          Name
+        </label>
+        <input
+          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -72,11 +100,11 @@ export default function Login({
           required
         />
         <SubmitButton
-          formAction={signIn}
+          formAction={signUp}
           className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing In..."
+          pendingText="Signing Up..."
         >
-          Sign In
+          Sign Up
         </SubmitButton>
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
