@@ -1,9 +1,11 @@
-// PostHeader.tsx
+import Link from 'next/link';
+
 interface PostHeaderProps {
     post: {
       id: string;
       title: string;
       tags: string[];
+      user_id: string;
       userName: string;
       timeAgo: string;
     };
@@ -11,10 +13,9 @@ interface PostHeaderProps {
   
   export default function PostHeader({ post }: PostHeaderProps) {
     return (
-      <div className="w-full max-w-3xl mx-auto p-4 bg-white shadow-md rounded-lg mb-4">
-        <a href={`/rhzn5512/posts/${post.id}`} className="text-2xl font-bold mb-2 text-black hover:underline">
-          {post.title}
-        </a>
+      <div className="w-full max-w-3xl mx-auto p-4 py-6 bg-white shadow-md rounded-lg mb-4 hover:bg-gray-100 cursor-pointer">
+        <Link href={`/${post.user_id}/posts/${post.id}`}>
+        <h2 className="text-2xl font-bold mb-2 text-black">{post.title}</h2>
         <div className="text-gray-600 py-2">
           <span className="mr-2">{post.userName}</span>
           <span>{post.timeAgo}</span>
@@ -26,7 +27,7 @@ interface PostHeaderProps {
             </span>
           ))}
         </div>
-      </div>
+        </Link>
+    </div>
     );
   }
-  
