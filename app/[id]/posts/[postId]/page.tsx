@@ -3,7 +3,6 @@ import Footer from '@/components/footer';
 import getTimeAgo from '@/components/getTimeAgo';
 import Navbar from '@/components/navbar';
 import Sidebar from '@/components/sidebar';
-import increaseViewCount from '@/components/tutorial/incrementViews';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -43,22 +42,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
   const { id, postId } = params;
   try{
-    const [post, userName, views] = await Promise.all([getPostData(id, postId), getUserName(id), increaseViewCount(postId)]);
+    const [post, userName] = await Promise.all([getPostData(id, postId), getUserName(id)]);
     const headers = await extractHeaders(post.markdown);
     const timeAgo = getTimeAgo(post.created_at);
 
     return (
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
+      <div className="flex-1 w-full flex flex-col gap-20 items-center bg-white">
         <Navbar userId={id} />
-        <div className="flex justify-center w-full">
-          <main className="flex-1 px-8 max-w-4xl">
+        <div className="flex justify-center w-full max-w-6xl">
+          <main className="flex-grow py-12 px-4 max-w-4xl bg-white shadow-md rounded-lg">
             <Suspense fallback={<div>Loading post...</div>}>
               <Post post={{ ...post, userName, timeAgo }} />
             </Suspense>
           </main>
-          <div className="rounded-lg">
+          <aside className="hidden md:block w-1 flex-shrink-0">
             <Sidebar headers={headers} />
-          </div>
+          </aside>
         </div>
         <Footer/>
       </div>

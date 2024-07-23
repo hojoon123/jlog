@@ -54,3 +54,41 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: 1px; /* Chrome, Safari, and Opera */
 }
+
+.prose {
+  @apply prose-lg prose-blue dark:prose-dark;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+aside {
+  flex-shrink: 0;
+  margin-left: 2rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  max-width: 80%; /* Adjust as needed */
+}
+
+.sidebar {
+  width: 20%; /* Adjust as needed */
+}
+
+.h1-custom {
+  line-height: 1.25;
+  font-size: 2.5rem;
+}
+
+.h2-custom {
+  line-height: 1.25;
+}
+
+.h3-custom {
+  line-height: 1.25;
+}

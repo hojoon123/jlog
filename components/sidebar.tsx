@@ -11,7 +11,7 @@ export default function Sidebar({ headers }: SidebarProps) {
       <ul>
         {headers.map((header) => (
           <li key={header.id} className="mb-2">
-            <a href={`#${header.id}`} className="block text-blue-600 hover:text-white hover:bg-blue-600 px-2 py-1 rounded transition-colors duration-200 ease-in-out">
+            <a href={`#${header.id}`} className="block text-gray-800 hover:text-blue-600 px-2 py-1 rounded transition-colors duration-200 ease-in-out hover:bg-gray-100">
               {header.text}
             </a>
           </li>

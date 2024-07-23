@@ -8,7 +8,7 @@ interface HeaderProps {
   export default function Header({ title, userName, timeAgo, tags }: HeaderProps) {
     return (
       <div>
-        <h1 className="text-4xl font-bold mb-2">{title}</h1>
+        <h1 className="text-5xl font-bold mb-2 leading-relaxed">{title}</h1>
         <div className="mb-4 text-gray-600 py-8 flex-row gap-x-3">
           <div className='mb-8'>
             <span className="mr-2 text-lg text-black">{userName}</span>
