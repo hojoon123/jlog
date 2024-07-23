@@ -3,6 +3,7 @@ import Footer from '@/components/footer';
 import getTimeAgo from '@/components/getTimeAgo';
 import Navbar from '@/components/navbar';
 import Sidebar from '@/components/sidebar';
+import increaseViewCount from '@/components/tutorial/incrementViews';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
   const { id, postId } = params;
   try{
-    const [post, userName] = await Promise.all([getPostData(id, postId), getUserName(id)]);
+    const [post, userName, views] = await Promise.all([getPostData(id, postId), getUserName(id), increaseViewCount(postId)]);
     const headers = await extractHeaders(post.markdown);
     const timeAgo = getTimeAgo(post.created_at);
 
