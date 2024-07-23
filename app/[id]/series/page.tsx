@@ -4,10 +4,31 @@ import Navbar from '@/components/navbar';
 import TabButtons from '@/components/tabButtons';
 import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
+import getUserNameIntro from '../posts/getUserNameIntro';
 
 interface PageProps {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { id: userId } = params;
+  const userData = await getUserNameIntro(userId);
+  const { name } = userData;
+
+  return {
+    title: `${name} - Series`,
+    description: `${name}님의 시리즈 모음입니다.`,
+    openGraph: {
+      title: `${name} - Series`,
+      description: `${name}님의 시리즈 모음입니다.`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${name} - Series`,
+      description: `${name}님의 시리즈 모음입니다.`,
+    },
   };
 }
 

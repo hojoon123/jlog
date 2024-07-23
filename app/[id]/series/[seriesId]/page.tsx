@@ -28,6 +28,26 @@ async function getPostsBySeries(userId: string, series: string) {
   return data;
 }
 
+export async function generateMetadata({ params }: PageProps) {
+  const { id: userId, seriesId } = params;
+  const userData = await getUserNameIntro(userId);
+  const { name } = userData;
+
+  return {
+    title: `${name} - ${decodeURIComponent(seriesId)} Series`,
+    description: `${name}님의 ${decodeURIComponent(seriesId)} 시리즈입니다.`,
+    openGraph: {
+      title: `${name} - ${decodeURIComponent(seriesId)} Series`,
+      description: `${name}님의 ${decodeURIComponent(seriesId)} 시리즈입니다.`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${name} - ${decodeURIComponent(seriesId)} Series`,
+      description: `${name}님의 ${decodeURIComponent(seriesId)} 시리즈입니다.`,
+    },
+  };
+}
+
 export default async function Page({ params }: PageProps) {
   const { id: userId, seriesId } = params;
   const [posts, userData] = await Promise.all([

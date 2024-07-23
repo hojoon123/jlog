@@ -1,8 +1,10 @@
+import fetchPostMetadata from '@/components/fetchPostMetadata';
 import Footer from '@/components/footer';
 import getTimeAgo from '@/components/getTimeAgo';
 import Navbar from '@/components/navbar';
 import Sidebar from '@/components/sidebar';
 import increaseViewCount from '@/components/tutorial/incrementViews';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import extractHeaders from './extractHeaders';
@@ -16,6 +18,27 @@ interface PageProps {
     postId: number;
   };
 }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { title, description, tags } = await fetchPostMetadata(params.postId);
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://localhost:3000/${params.id}/posts/${params.postId}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    keywords: tags,
+  };
+}
+
 
 export default async function Page({ params }: PageProps) {
   const { id, postId } = params;

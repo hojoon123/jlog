@@ -1,15 +1,19 @@
-// components/PeriodSelector.tsx
 'use client';
 
-import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Next.js 14의 새로운 라우팅 시스템 사용
+import { useEffect, useState } from 'react';
 
-const PeriodSelector = ({ onPeriodChange }: { onPeriodChange: (period: string) => void }) => {
-  const [period, setPeriod] = useState('day');
+const PeriodSelector = ({ currentPeriod }: { currentPeriod: string }) => {
+  const router = useRouter();
+  const [period, setPeriod] = useState(currentPeriod);
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    setPeriod(currentPeriod); // 페이지가 로드될 때 currentPeriod 값을 설정
+  }, [currentPeriod]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newPeriod = e.target.value;
-    setPeriod(newPeriod);
-    onPeriodChange(newPeriod);
+    router.push(`/trend/${newPeriod}`); // 새로운 URL로 리다이렉트
   };
 
   return (

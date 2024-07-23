@@ -10,6 +10,26 @@ interface PageProps {
   };
 }
 
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = params;
+  const userData = await getUserData(id);
+  const { name, bio } = userData;
+
+  return {
+    title: `${name} - About`,
+    description: bio,
+    openGraph: {
+      title: `${name} - About`,
+      description: bio,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${name} - About`,
+      description: bio,
+    },
+  };
+}
+
 export default async function Page({ params }: PageProps) {
   const { id } = params;
   const userData = await getUserData(id);
