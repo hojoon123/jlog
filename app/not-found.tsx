@@ -2,7 +2,8 @@ export const metadata = {
   title: "Not Found",
 }
 
-export default function NotFound() {  return (
+export default function NotFound() {  
+  return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-100 text-gray-800">
       <div className="text-center">
         <h1 className="text-6xl font-bold mb-4">404</h1>

@@ -3,6 +3,7 @@ import Tabs from '@/components/home/HomeTab';
 import PostCard from '@/components/home/PostCard';
 import Navbar from '@/components/navbar';
 import { createClient } from '@/utils/supabase/server';
+import NotFound from '../not-found';
 
 export async function generateMetadata() {
   return {
@@ -29,20 +30,24 @@ async function fetchLatestPosts() {
 }
 
 export default async function LatestPage() {
-  const posts = await fetchLatestPosts();
-    
-  return (
-    <div className="flex-1 w-full flex flex-col items-center">
-      <Navbar userId="" />
-      <div className="w-full max-w-4xl mt-4 mb-6">
-        <Tabs activeTab="latest" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 mb-20 px-3">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+  try{
+    const posts = await fetchLatestPosts();
+      
+    return (
+      <div className="flex-1 w-full flex flex-col items-center">
+        <Navbar userId="" />
+        <div className="w-full max-w-4xl mt-4 mb-6">
+          <Tabs activeTab="latest" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 mb-20 px-3">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  } catch (error) {
+    NotFound();
+  }
 }

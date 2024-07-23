@@ -1,3 +1,4 @@
+import NotFound from '@/app/not-found';
 import Footer from '@/components/footer';
 import Tabs from '@/components/home/HomeTab';
 import PeriodSelector from '@/components/home/PeriodSelector';
@@ -45,28 +46,32 @@ async function fetchTrendingPosts(period: string): Promise<Post[]> {
 }
 
 export default async function TrendingPage({ params }: TrendingPageProps) {
-  const { period } = params;
-  const posts = await fetchTrendingPosts(period);
+  try {
+    const { period } = params;
+    const posts = await fetchTrendingPosts(period);
 
-  return (
-    <div className="flex-1 w-full flex flex-col items-center">
-      <Navbar userId="" />
-      <div className="w-full max-w-4xl mt-4 mb-6">
-        <Tabs activeTab="trend" />
-        <div className="flex justify-end my-7 px-3">
-          <PeriodSelector currentPeriod={period} />
-        </div>
-        {posts.length === 0 ? (
-          <div className="text-center text-gray-500 mb-20">조건에 맞는 포스팅이 존재하지 않습니다.</div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 mb-10">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+    return (
+      <div className="flex-1 w-full flex flex-col items-center">
+        <Navbar userId="" />
+        <div className="w-full max-w-4xl mt-4 mb-6">
+          <Tabs activeTab="trend" />
+          <div className="flex justify-end my-7 px-3">
+            <PeriodSelector currentPeriod={period} />
           </div>
-        )}
+          {posts.length === 0 ? (
+            <div className="text-center text-gray-500 mb-20">조건에 맞는 포스팅이 존재하지 않습니다.</div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 mb-10">
+              {posts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+            </div>
+          )}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  } catch (error) {
+    NotFound();
+  }
 }

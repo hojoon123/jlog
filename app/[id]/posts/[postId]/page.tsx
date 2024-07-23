@@ -20,23 +20,27 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { title, description, tags } = await fetchPostMetadata(params.postId);
+  try{
+    const { title, description, tags } = await fetchPostMetadata(params.postId);
 
-  return {
-    title,
-    description,
-    openGraph: {
+    return {
       title,
       description,
-      url: `https://localhost:3000/${params.id}/posts/${params.postId}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
-    keywords: tags,
-  };
+      openGraph: {
+        title,
+        description,
+        url: `https://localhost:3000/${params.id}/posts/${params.postId}`,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+      },
+      keywords: tags,
+    };
+  } catch (error) {
+    notFound(); // 오류 발생 시 not-found 페이지로 리디렉션
+}
 }
 
 
@@ -65,7 +69,6 @@ export default async function Page({ params }: PageProps) {
     );
   }
   catch (error) {
-    console.error(error);
     notFound(); // 오류 발생 시 not-found 페이지로 리디렉션
 }
 }

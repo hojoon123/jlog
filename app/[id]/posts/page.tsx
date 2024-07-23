@@ -14,23 +14,27 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps) {
+  try {  
     const { id } = params;
-    const userData = await getUserNameIntro(id);
-    const { name, one_line_intro } = userData;
-  
-    return {
-      title: `${name} - Posts`,
-      description: one_line_intro,
-      openGraph: {
+      const userData = await getUserNameIntro(id);
+      const { name, one_line_intro } = userData;
+    
+      return {
         title: `${name} - Posts`,
         description: one_line_intro,
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: `${name} - Posts`,
-        description: one_line_intro,
-      },
-    };
+        openGraph: {
+          title: `${name} - Posts`,
+          description: one_line_intro,
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: `${name} - Posts`,
+          description: one_line_intro,
+        },
+      };
+    } catch (error) {
+      notFound(); // 오류 발생 시 not-found 페이지로 리디렉션
+    }
   }
 
 export default async function Page({ params }: PageProps) {
@@ -40,10 +44,6 @@ export default async function Page({ params }: PageProps) {
           getUserNameIntro(id),
           getPostsByUser(id)
         ]);
-
-        if (!userData || !posts) {
-            throw new Error('User data or posts not found');
-        }
 
         const userName = userData.name;
         const oneLineIntro = userData.one_line_intro;
@@ -81,7 +81,6 @@ export default async function Page({ params }: PageProps) {
             </div>
         );
     } catch (error) {
-        console.error(error);
         notFound(); // 오류 발생 시 not-found 페이지로 리디렉션
     }
 }
