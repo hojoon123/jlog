@@ -17,7 +17,7 @@ export default async function MainTitle({ userId }: MainTitleProps) {
 
   return (
     <Link href={`/${userId}`}>
-      <div className="py-2 px-4 flex rounded-md no-underline hover:bg-btn-background-hover border">
+      <div className="py-2 px-4 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover border">
         <div className="flex items-center">
           <svg
             aria-label="Vercel logomark"
