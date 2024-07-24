@@ -18,7 +18,7 @@ const PeriodSelector = ({ currentPeriod }: { currentPeriod: string }) => {
 
   return (
     <div className="flex justify-end mb-4">
-      <select value={period} onChange={handleChange} className="border p-2 rounded bg-neutral-50 dark: bg-neutral-50">
+      <select value={period} onChange={handleChange} className="border p-2 rounded bg-white dark: bg-btn-background hover:bg-btn-background-hover">
         <option value="day">Day</option>
         <option value="week">Week</option>
         <option value="month">Month</option>
