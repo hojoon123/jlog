@@ -36,15 +36,15 @@ const config: Config = {
         },
         dark: {
           css: {
-            color: theme('colors.gray.100'),
+            color: theme('colors.gray.800'),
             h1: {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.900'),
             },
             h2: {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.900'),
             },
             h3: {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.900'),
             },
           },
         },
