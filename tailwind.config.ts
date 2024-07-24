@@ -22,15 +22,16 @@ const config: Config = {
             color: theme('colors.gray.800'),
             h1: {
               color: theme('colors.gray.900'),
-              lineHeight: '1.8',
             },
             h2: {
               color: theme('colors.gray.900'),
-              lineHeight: '1.75',
             },
             h3: {
               color: theme('colors.gray.900'),
-              lineHeight: '1.7',
+            },
+            select: {
+              backgroundColor: theme('colors.white'),
+              color: theme('colors.gray.900'),
             },
           },
         },
@@ -44,6 +45,10 @@ const config: Config = {
               color: theme('colors.gray.900'),
             },
             h3: {
+              color: theme('colors.gray.900'),
+            },
+            select: {
+              backgroundColor: theme('colors.white'),
               color: theme('colors.gray.900'),
             },
           },

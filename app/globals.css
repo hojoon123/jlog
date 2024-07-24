@@ -24,6 +24,16 @@
   * {
     @apply border-foreground/20;
   }
+  
+  select {
+    @apply bg-white text-gray-900;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    select {
+      @apply bg-gray-800 text-gray-100;
+    }
+  }
 }
 
 .prose code {
