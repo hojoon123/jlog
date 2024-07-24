@@ -41,7 +41,7 @@ export default async function Page({ params }: PageProps) {
       <TabButtons userId={id} />
       <div className="flex flex-col items-center w-full">
         <div className="w-full max-w-3xl p-4 bg-white shadow-md rounded-lg mb-4">
-          <h1 className="text-4xl font-bold mb-2 py-4 underline underline-offset-8">{name}</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2 py-4 underline underline-offset-8">{name}</h1>
           <MarkdownContent bio={bio} />
         </div>
       </div>

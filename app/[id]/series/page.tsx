@@ -58,7 +58,7 @@ export default async function Page({ params }: PageProps) {
       <Navbar userId={userId} />
       <TabButtons userId={userId} />
       <div className="w-full max-w-3xl p-4 bg-white shadow-md rounded-lg mb-4">
-        <h1 className="text-4xl font-bold mb-4">Series</h1>
+        <h1 className="text-4xl font-bold mb-4 text-gray-900">Series</h1>
         <ul>
           {series.map((seriesName) => (
             <li key={seriesName} className="mb-2">
