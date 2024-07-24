@@ -92,3 +92,9 @@ aside {
 .h3-custom {
   line-height: 1.25;
 }
+
+.h1,
+.h2,
+.h3 {
+  color: #111827;
+}
