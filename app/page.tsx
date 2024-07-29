@@ -7,17 +7,17 @@ import Navbar from '@/components/navbar';
 import { createClient } from '@/utils/supabase/server';
 
 export const metadata = {
-  title: `Daily JLog - Trending Posts - weekly`,
-    description: `Check out the trending posts for the week period.`,
-    openGraph: {
-      title: `Daily JLog - Trending Posts - weekly`,
-      description: `Check out the trending posts for the week period.`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `Daily JLog - Trending Posts - weekly`,
-      description: `Check out the trending posts for the week period.`,
-    },
+  title: `Daily JLog - 주간 인기 게시판`,
+  description: `외국어 학습의 모든 정보 Daily JLog`,
+  openGraph: {
+    title: `Daily JLog - 주간 인기 게시판`,
+    description: `외국어 학습의 모든 정보 Daily JLog`,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Daily JLog - 주간 인기 게시판`,
+    description: `외국어 학습의 모든 정보 Daily JLog`,
+  },
 };
 
 type Post = {
