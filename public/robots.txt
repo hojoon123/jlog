@@ -3,7 +3,8 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://dailyjlog.com
+Host: https://www.dailyjlog.com
 
 # Sitemaps
-Sitemap: https://dailyjlog.com/sitemap.xml
+Sitemap: https://www.dailyjlog.com/sitemap.xml
+Sitemap: https://www.dailyjlog.com/server-sitemap.xml
