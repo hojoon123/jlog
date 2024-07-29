@@ -1,38 +1,36 @@
 import { createClient } from "@/utils/supabase/server";
 import { format } from 'date-fns';
 
-interface Page {
-    url: string;
-    date_modified: string;
-  }
-
 // Supabase에서 데이터를 가져오는 함수
 async function getPages() {
   const supabase = createClient();
-  const { data: pages, error } = await supabase
+  const { data, error } = await supabase
     .from('posts')
-    .select('url, date_modified')
-    .eq('noindex', false)
-    .not('date_published', 'is', null)
-    .order('date_modified', { ascending: false });
+    .select('user_id, id, created_at')
+    .not('created_at', 'is', null)
+    .order('created_at', { ascending: false });
 
   if (error) {
     console.error('Error fetching pages:', error);
     return [];
   }
 
-  return pages || [];
+  return data;
 }
 
 // Sitemap을 생성하는 함수
-function generateSitemap(pages: Page[]) {
+function generateSitemap(pages: any[]) {
+  if (pages.length === 0) {
+    console.warn("No pages found for sitemap generation.");
+  }
+
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${pages
         .map(page => {
           return `<url>
-            <loc>${page.url}</loc>
-            <lastmod>${format(new Date(page.date_modified), 'yyyy-MM-dd')}</lastmod>
+            <loc>https://www.dailyjlog.com/${page.user_id}/posts/${page.id}</loc>
+            <lastmod>${format(new Date(page.created_at), 'yyyy-MM-dd')}</lastmod>
           </url>`;
         })
         .join('')}
