@@ -20,7 +20,7 @@ export default function PostCard({ post }: PostProps) {
         <Link href={`/${post.user_id}/posts/${post.id}`}>{post.title}</Link>
       </h2>
       <p className="text-gray-500 mt-2">{new Date(post.created_at).toLocaleDateString()}</p>
-      <p className="text-gray-500">조회수: {post.views}</p>
+      <p className="text-gray-500">조회수: {post.views || 0}</p>
     </div>
   );
 }
