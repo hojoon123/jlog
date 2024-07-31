@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: TrendingPageProps) {
 
 async function fetchTrendingPosts(period: string): Promise<Post[]> {
   const supabase = createClient();
-  const { data, error } = await supabase.rpc('get_trending_posts', { period });
+  const { data, error } = await supabase
+    .rpc('get_trending_posts', { period })
+    .order('views', { ascending: false });
   if (error) throw new Error(error.message);
   return data as Post[];
 }
